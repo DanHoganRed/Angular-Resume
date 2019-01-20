@@ -1,0 +1,11 @@
+  <h2>TimeLine</h2>
+  <mgl-timeline>
+    <mgl-timeline-entry *ngFor="let entry of entries;">
+        <mgl-timeline-entry-header>{{entry.time}}: {{entry.header}}</mgl-timeline-entry-header>
+        <mgl-timeline-entry-content>{{entry.content}}</mgl-timeline-entry-content>
+        <mgl-timeline-entry-dot 
+        [class]="color ? 'primary' : 'accent'" 
+        [size]="size"
+        (click)="onDotClick($event)"></mgl-timeline-entry-dot>
+    </mgl-timeline-entry>
+</mgl-timeline>
