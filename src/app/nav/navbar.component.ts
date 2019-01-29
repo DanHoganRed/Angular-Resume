@@ -5,14 +5,14 @@ import { SlideService } from "../slide.service";
 @Component({
     selector: 'nav-bar',
     template: `
-    <nav class="navbar navbar-default border border-dark">
+    <nav class="navbar navbar-default border" style="background:#aa4e4ec7">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Dan Hogan</a>
       </div>
       <ul class="nav nav-pills">
         <li class="nav-item" (click)='slider.setCurrentSlide(0)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 0 ? 'active':'' ">Bio</button></li>
-        <li class="nav-item" (click)='slider.setCurrentSlide(1)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 1 ? 'active':'' ">Work Experience</button></li>
+        <li class="nav-item" (click)='slider.setCurrentSlide(1)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 1 ? 'active':'' ">Skills</button></li>
         <li class="nav-item" (click)='slider.setCurrentSlide(2)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 2 ? 'active':'' ">TimeLine</button></li>
       </ul>
     </div>
@@ -20,11 +20,17 @@ import { SlideService } from "../slide.service";
     `,
     styles:[`
     .navbar-default {
-      border-color: darkblue;
+      
     }
     button.nav-link { 
       background:none;
       border:none; 
+    }
+    .navbar-brand {
+      color:white
+    }
+    .nav-link.active {
+      background-color:#a7b1b1b8
     }
     `]
     

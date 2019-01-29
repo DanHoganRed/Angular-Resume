@@ -5,22 +5,22 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav/navbar.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { HomeComponent } from './home/home.component';
-import { WorkComponent } from './work/work.component';
 import { BioComponent } from './bio/bio.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { RouterModule } from '@angular/router';
 import {appRoutes} from './routes'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MglTimelineModule } from 'angular-mgl-timeline';
+import { SkillComponent } from './skill/skill.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HomeComponent,
-    WorkComponent,
     BioComponent,
-    TimelineComponent
+    TimelineComponent,
+    SkillComponent
   ],
   imports: [
     BrowserModule,

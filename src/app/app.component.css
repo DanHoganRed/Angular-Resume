@@ -3,9 +3,15 @@
     max-height: 350px;
     filter: grayscale();
 }
-
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
+
+  .container {
+    padding: 0px 10px;    
+    background: #a7b1b1b8;
+    height: 100%;
+
+}
