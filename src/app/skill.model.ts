@@ -1,6 +1,6 @@
 export interface ISkill {
-    descript:any
-    title:any
+    descript:String
+    title:String
     level:LevelType
 }
 

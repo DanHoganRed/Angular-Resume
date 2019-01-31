@@ -13,5 +13,5 @@ ul {
     padding: 0px 10px;    
     background: #a7b1b1b8;
     height: 100%;
-
+    min-height: -webkit-fill-available;
 }
