@@ -9,9 +9,31 @@
     </div>
     <div class="card-body">
       <h5 class="card-title">{{skill.title}}</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
-      <a href="#" class="btn btn-primary">View Experience</a>
+      <p class="card-text">{{skillService.GetTrimmedSkillDescription(skill)}}</p>
+                <!------------------------->
+                <ng-template #content let-modal>
+                    <div class="modal-body">
+                      <div class="container">
+                        <div class="row">
+                        <div class="col-3">
+                            <div [ngSwitch]="skill?.level">
+                                <img *ngSwitchCase="levelType.LEVEL_ONE" class="card-img-top" src="src\assets\images\Skill_1.png" alt="Card image cap">
+                                <img *ngSwitchCase="levelType.LEVEL_TWO" class="card-img-top" src="src\assets\images\Skill_2.png" alt="Card image cap">
+                                <img *ngSwitchCase="levelType.LEVEL_THREE" class="card-img-top" src="src\assets\images\Skill_3.png" alt="Card image cap">
+                                <img *ngSwitchCase="levelType.LEVEL_FOUR" class="card-img-top" src="src\assets\images\Skill_4.png" alt="Card image cap">
+                                <img *ngSwitchDefault class="card-img-top" src="src\assets\images\Skill_1.png" alt="Card image cap">
+                              </div>
+                              <h5 style="text-align: center;">{{skill.title}}</h5>
+                            </div>
+                        <div class="col-9">
+                          <p>{{skill.descript}}</p>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                </ng-template>
+                  <!------------------------->
+                  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">View Experience</button>
     </div>
   </div>
 </div>

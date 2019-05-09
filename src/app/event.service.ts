@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IEvent } from './event.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
+
+  
 
   constructor() { }
   
@@ -12,6 +15,22 @@ export class EventService {
   {
     return SKILLS;
   }
+
+  public getDateString(e:IEvent):String
+  {
+    var dateString = "";
+    var options = {year: 'numeric', month: 'long', day: 'numeric' };
+    if(e.DateEnded == null)
+    {
+      dateString=new Intl.DateTimeFormat('en-ca',options).format(e.DateStarted);
+    }
+    else
+    {
+      dateString=new Intl.DateTimeFormat('en-ca',options).format(e.DateEnded);
+    }
+    return dateString;
+  }
+
 }
 
 const SKILLS: IEvent[] = [
@@ -19,7 +38,7 @@ const SKILLS: IEvent[] = [
     descript:"Participated in teaching kids to code",
     title:"Hour of Code",
     DateStarted:new Date('2018-12-06'),
-    DateEnded:new Date('2018-12-06')
+    DateEnded:new Date('2018-12-06'),
   },
   {
     descript:"Completed Realtor Hack",

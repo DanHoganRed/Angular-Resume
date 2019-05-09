@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CarouselComponent } from 'ngx-bootstrap/carousel';
 import { SlideService } from '../slide.service';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
     this.slider = slider;
 
   }
+
+  
 
   ngOnInit() {
     

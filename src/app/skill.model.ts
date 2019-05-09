@@ -1,5 +1,6 @@
 export interface ISkill {
     descript:String
+    time:String
     title:String
     level:LevelType
 }

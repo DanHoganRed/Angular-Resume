@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common'
 import { EventService } from '../event.service';
 import { IEvent } from '../event.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -13,9 +14,13 @@ import { IEvent } from '../event.model';
 export class TimelineComponent implements OnInit {
   events:IEvent[]
 
-  constructor(location: Location,private eventService:EventService,private route:ActivatedRoute) { 
+  constructor(location: Location,private eventService:EventService,private route:ActivatedRoute, private modalService: NgbModal) { 
     
   } 
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
 
   ngOnInit() {
     this.events = this.eventService.getEvents();
@@ -29,5 +34,4 @@ export class TimelineComponent implements OnInit {
   {
     return hashVal == location.hash;
   }
-
 }
