@@ -43,6 +43,12 @@ const SKILLS: ISkill[] = [
     level:LevelType.LEVEL_THREE
   },
   {
+    descript:"I am very familiar with Agile Development both in practice and in theory. In Carleton I attended a course dedicated to development processes with a large portion covering Agile Development. Additionally Agile development was the ideology used in both TravelClick and Avanade.",
+    time:"SDF",
+    title:"Agile Development",
+    level:LevelType.LEVEL_THREE
+  },
+  {
     descript:"Skills developed with Angular through online courses and personal projects. I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume to put these skills into practice.    ",
     time:"SDF",
     title:"Angular",
@@ -61,12 +67,6 @@ const SKILLS: ISkill[] = [
     level:LevelType.LEVEL_TWO
   },
   {
-    descript:"Machine Learning is an exciting and interesting subject for me. However I have not yet gotten any hands-on experience doing it. I am currently in the process of working through an online course focused on teaching Machine Learning through TensorFlow. Additionally I have light experience with technology leveraging machine learning such as Azure Machine Learning Studio and Azure Computer Vision.",
-    time:"SDF",
-    title:"Machine Learning",
-    level:LevelType.LEVEL_ONE
-  },
-  {
     descript:"Strong experience writing complex SQL queries and statement. Experience through programming courses taken in carleton including a database specific course where I learned additional theory in database design. Additional experience using MySQL in TravelClick and SQL Server at Avanade. However I have not been put in a role of a dba in charge of maintaining or optimizing a database.",
     time:"SDF",
     title:"SQL",
@@ -81,19 +81,19 @@ const SKILLS: ISkill[] = [
   {
     descript:"I have experience developing for Android through my 4th year engineering project at Carleton. My 4th year engineering project was developed using Xamarin in Visual Studio. My development done for Android devices and included developing backend communication, designing views and functionality using components such as forms, popups and navigation drawers. Additionally I have done some work on unfinished apps in traditional Android studio.",
     time:"SDF",
-    title:"Android Mobile Development",
+    title:"Android Mobile Dev",
     level:LevelType.LEVEL_TWO
+  },
+  {
+    descript:"Machine Learning is an exciting and interesting subject for me. However I have not yet gotten any hands-on experience doing it. I am currently in the process of working through an online course focused on teaching Machine Learning through TensorFlow. Additionally I have light experience with technology leveraging machine learning such as Azure Machine Learning Studio and Azure Computer Vision.",
+    time:"SDF",
+    title:"Machine Learning",
+    level:LevelType.LEVEL_ONE
   },
   {
     descript:"I have light experience with Python scripting in school. I completed a course dedicated to lightweight python scripting such as writing a script to apply filters on images and a script to do word counts on a text file using regression. Additionally I am working on a Machine learning course that utilizes Python.",
     time:"SDF",
     title:"Python",
     level:LevelType.LEVEL_TWO
-  },
-  {
-    descript:"I am very familiar with Agile Development both in practice and in theory. In Carleton I attended a course dedicated to development processes with a large portion covering Agile Development. Additionally Agile development was the ideology used in both TravelClick and Avanade.",
-    time:"SDF",
-    title:"Agile Development",
-    level:LevelType.LEVEL_THREE
   }
 ]

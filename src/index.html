@@ -12,18 +12,19 @@
 <body> 
   <div class="bg-image">
   <div style="height:100vh;width:100%">
-      <div style="height:20vh;" ></div>
-      <h4 class="SiteTitle">(WIP)</h4>
+      <div style="height:15vh;" ></div>
+      <!--h4 class="SiteTitle">(WIP)</h4-->
       <img class="headshot" src="assets/images/60012365_1577631769037011_2992616006490259456_n.jpg">
       <h2 class="SiteTitle">Daniel Hogan</h2>
-      <h3 class="SiteTitle">Ottawa Native, Software Developer</h3>
-      <a href="#root">
-        <img class="down" src="assets/images/Down_2.png">
-      </a>
-  </div>
+      <h3 class="SiteTitle">Edmonton AB, Software Developer</h3>
       <div>
+        <img class="down" src="assets/images/Down_2.png" usemap="#Arrow">
+        <map id="Arrow" name="Arrow">
+          <area shape="poly" coords="60,180,150,180,105,265" href="#root">
+        </map>
+    </div>
+  </div>
         <app-root id="root"></app-root>
-      </div>
   </div>
 </body>
 </html>

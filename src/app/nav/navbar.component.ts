@@ -5,7 +5,7 @@ import { SlideService } from "../slide.service";
 @Component({
     selector: 'nav-bar',
     template: `
-    <nav class="navbar navbar-default border" style="background:#aa4e4ec7">
+    <nav class="navbar navbar-default border" style="background:#4c849985">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Dan Hogan</a>
@@ -13,7 +13,6 @@ import { SlideService } from "../slide.service";
       <ul class="nav nav-pills">
         <li class="nav-item" (click)='slider.setCurrentSlide(0)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 0 ? 'active':'' ">Bio</button></li>
         <li class="nav-item" (click)='slider.setCurrentSlide(1)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 1 ? 'active':'' ">Skills</button></li>
-        <li class="nav-item" (click)='slider.setCurrentSlide(2)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 2 ? 'active':'' ">TimeLine</button></li>
       </ul>
     </div>
   </nav>
