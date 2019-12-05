@@ -14,11 +14,11 @@
     <div class="card-body">
       <h5 class="card-title">{{skill.title}}</h5>
       <p class="card-text">{{skillService.GetTrimmedSkillDescription(skill)}}</p>
-      <a class="btn btn-lg btn-outline-primary" href="{{'#'+i+'_cardcollapse'}}" >View Experience</a>
+      <a class="btn btn-lg btn-outline-primary" href="{{'#cardcollapse'+i}}" >View Experience</a>
     </div>
     <!------------------------->
     <!--ng-template #content-->
-      <div class="collapse" id="{{'#'+i+'_cardcollapse'}}">
+      <div class="collapse" id="{{'cardcollapse'+i}}">
         <div class="row">
           <div class="col-3">
             <div [ngSwitch]="skill?.level">

@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import {appRoutes} from './routes'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkillComponent } from './skill/skill.component';
+import { $ } from 'protractor';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @NgModule({
   declarations: [
@@ -28,4 +30,4 @@ import { SkillComponent } from './skill/skill.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
