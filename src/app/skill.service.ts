@@ -55,10 +55,16 @@ const SKILLS: ISkill[] = [
     level:LevelType.LEVEL_THREE
   },
   {
-    descript:"Skills developed with Angular through online courses and personal projects. I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume to put these skills into practice.    ",
+    descript:"Skills developed with Angular through online courses and personal projects. I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume using Angular 6 to put these skills into practice.    ",
     time:"SDF",
     title:"Angular",
     level:LevelType.LEVEL_TWO
+  },
+  {
+    descript:"I am most familar and effecient using Azure Devops and Git. I have used Git while at Carleton University for multiple projects. I have also used Git for all development done at Travelclick. Additionally I used Azure Devops for source control while at Avanade.",
+    time:"SDF",
+    title:"Source Control",
+    level:LevelType.LEVEL_THREE
   },
   {
     descript:"Powershell experienced gained through development of infrastructure setup scripts while at Avanade. This includes OU manipulation, certificate enrolment and IIS configuration through script.",
