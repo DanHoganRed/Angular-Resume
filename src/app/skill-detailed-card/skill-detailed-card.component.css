@@ -1,6 +1,6 @@
 .detailsRow{
     width: 100%;
-    height: 350px;
+    min-height: 350px;
     -moz-transition: all 5s !important;
     -ms-transition: all 5s !important;
     -o-transition: all 5s !important;
