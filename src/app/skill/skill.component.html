@@ -1,44 +1,20 @@
 <div class="card-group">
-  <div *ngFor="let skill of skills; index as i" class="card">
-    <div [ngSwitch]="skill?.level">
-      <img *ngSwitchCase="levelType.LEVEL_ONE" class="card-img-top" src="assets\images\Skill_1.png"
-        alt="Card image cap">
-      <img *ngSwitchCase="levelType.LEVEL_TWO" class="card-img-top" src="assets\images\Skill_2.png"
-        alt="Card image cap">
-      <img *ngSwitchCase="levelType.LEVEL_THREE" class="card-img-top" src="assets\images\Skill_3.png"
-        alt="Card image cap">
-      <img *ngSwitchCase="levelType.LEVEL_FOUR" class="card-img-top" src="assets\images\Skill_4.png"
-        alt="Card image cap">
-      <img *ngSwitchDefault class="card-img-top" src="assets\images\Skill_1.png" alt="Card image cap">
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">{{skill.title}}</h5>
-      <p class="card-text">{{skillService.GetTrimmedSkillDescription(skill)}}</p>
-      <a class="btn btn-lg btn-outline-primary" href="{{'#cardcollapse'+i}}" >View Experience</a>
-    </div>
-    <!------------------------->
-    <!--ng-template #content-->
-      <div class="collapse" id="{{'cardcollapse'+i}}">
-        <div class="row">
-          <div class="col-3">
-            <div [ngSwitch]="skill?.level">
-              <img *ngSwitchCase="levelType.LEVEL_ONE" class="card-img-top" src="assets\images\Skill_1.png"
-                alt="Card image cap">
-              <img *ngSwitchCase="levelType.LEVEL_TWO" class="card-img-top" src="assets\images\Skill_2.png"
-                alt="Card image cap">
-              <img *ngSwitchCase="levelType.LEVEL_THREE" class="card-img-top" src="assets\images\Skill_3.png"
-                alt="Card image cap">
-              <img *ngSwitchCase="levelType.LEVEL_FOUR" class="card-img-top" src="assets\images\Skill_4.png"
-                alt="Card image cap">
-              <img *ngSwitchDefault class="card-img-top" src="assets\images\Skill_1.png" alt="Card image cap">
-            </div>
-            <h5 style="text-align: center;">{{skill.title}}</h5>
-          </div>
-          <div class="col-9">
-            <p>{{skill.descript}}</p>
-          </div>
+  <div *ngFor="let skill of skills; index as i">
+      <div *ngIf="skill==null; else notShow">
+          <skill-detailed-card [index]="i" [ngbCollapse]="isCollapsed"></skill-detailed-card>
         </div>
-      </div>
+        <ng-template #notShow>
+            <skill-card [skill]="skill" [index]="i"></skill-card>
+        </ng-template>
+    <!--div *ngIf="addBreak(i); else otherContent">
+      <div>Test1</div>
+        <skill-detailed-card [index]="i" [ngbCollapse]="isCollapsed"></skill-detailed-card>
+    </div>
+    <ng-template id="#otherContent">
+        <div>Test2</div>
+        <skill-card [skill]="skill" [index]="i"></skill-card>
+    </ng-template-->
+    
     <!--/ng-template-->
     <!------------------------->
   </div>

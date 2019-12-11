@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkillComponent } from './skill/skill.component';
 import { $ } from 'protractor';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { SkillCardComponent } from './skill-card/skill-card.component';
+import { SkillDetailedCardComponent } from './skill-detailed-card/skill-detailed-card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
     NavBarComponent,
     HomeComponent,
     BioComponent,
-    SkillComponent
+    SkillComponent,
+    SkillCardComponent,
+    SkillDetailedCardComponent
   ],
   imports: [
     BrowserModule,

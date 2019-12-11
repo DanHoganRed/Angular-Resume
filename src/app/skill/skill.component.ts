@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillService } from '../skill.service';
 import { ISkill, LevelType } from '../skill.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-skill',
@@ -11,16 +11,29 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class SkillComponent implements OnInit {
   skills:ISkill[]
   public levelType=LevelType
-  
-  constructor(private skillService:SkillService,  private modalService: NgbModal) { }
+  index = 1;
+
+  constructor(private skillService:SkillService) { }
 
   ngOnInit() {
     this.skills = this.skillService.getSkills();
+    var cardRow = window.screen.width - document.getElementsByClassName('col-3')[0].clientWidth
+    var cardW = 250;
+    this.index = cardRow / cardW;
+    this.index = Math.trunc(this.index);
+    for(var i=0;i<this.skills.length;i++)
+    {
+      if(this.addBreak(i))
+      {
+        this.skills.splice(i, 0, null);
+        i++;
+      }
+    }
+    this.skills.splice(this.skills.length,0,null);
   }
 
-  open(content) {
-    //this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
-    document.querySelector(".card")
+  addBreak(i)
+  {
+    return ((i+1)%(this.index+1) == 0); 
   }
-
 }

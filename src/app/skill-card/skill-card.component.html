@@ -1,0 +1,18 @@
+<div class='card'>
+<div [ngSwitch]="skill?.level">
+    <img *ngSwitchCase="levelType.LEVEL_ONE" class="card-img-top" src="assets\images\Skill_1.png"
+      alt="Card image cap">
+    <img *ngSwitchCase="levelType.LEVEL_TWO" class="card-img-top" src="assets\images\Skill_2.png"
+      alt="Card image cap">
+    <img *ngSwitchCase="levelType.LEVEL_THREE" class="card-img-top" src="assets\images\Skill_3.png"
+      alt="Card image cap">
+    <img *ngSwitchCase="levelType.LEVEL_FOUR" class="card-img-top" src="assets\images\Skill_4.png"
+      alt="Card image cap">
+    <img *ngSwitchDefault class="card-img-top" src="assets\images\Skill_1.png" alt="Card image cap">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{skill.title}}</h5>
+    <p class="card-text">{{skillService.GetTrimmedSkillDescription(skill)}}</p>
+    <button class="btn btn-lg btn-outline-primary" (click)="expandDetails()">View Experience</button>
+  </div>
+</div>

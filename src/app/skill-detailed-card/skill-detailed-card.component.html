@@ -1,0 +1,21 @@
+<div class="collapse" id="cardCollapse" [ngbCollapse]="isCollapsed" style="padding: 0" #details>
+    <div class="row detailsRow" *ngIf="skill!=null" #details>
+      <div class="col-3">
+        <div [ngSwitch]="skill?.level">
+          <img *ngSwitchCase="levelType.LEVEL_ONE" class="card-img-top" src="assets\images\Skill_1.png"
+            alt="Card image cap">
+          <img *ngSwitchCase="levelType.LEVEL_TWO" class="card-img-top" src="assets\images\Skill_2.png"
+            alt="Card image cap">
+          <img *ngSwitchCase="levelType.LEVEL_THREE" class="card-img-top" src="assets\images\Skill_3.png"
+            alt="Card image cap">
+          <img *ngSwitchCase="levelType.LEVEL_FOUR" class="card-img-top" src="assets\images\Skill_4.png"
+            alt="Card image cap">
+          <img *ngSwitchDefault class="card-img-top" src="assets\images\Skill_1.png" alt="Card image cap">
+        </div>
+        <h5 style="text-align: center;">{{skill.title}}</h5>
+      </div>
+      <div class="col-9">
+        <p>{{skill.descript}}</p>
+      </div>
+    </div>
+</div>
