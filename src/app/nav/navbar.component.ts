@@ -1,5 +1,4 @@
-import { Component, Input } from "@angular/core";
-import {CarouselComponent} from "ngx-bootstrap/carousel"
+import { Component } from "@angular/core";
 import { SlideService } from "../slide.service";
 
 @Component({
@@ -34,6 +33,9 @@ import { SlideService } from "../slide.service";
     `]
     
   })
+  /**
+   * This component uses the slider service to figure out which screen to show.
+   */
   export class NavBarComponent {
     slider:SlideService
 

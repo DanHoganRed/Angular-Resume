@@ -1,13 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SlideService } from '../slide.service';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+/**
+ * This component control the home page layout. Uses the slider service 
+ * to figure out the active slide to show. 
+ */
+export class HomeComponent  {
 
   slider:SlideService
 
@@ -15,11 +18,4 @@ export class HomeComponent implements OnInit {
     this.slider = slider;
 
   }
-
-  
-
-  ngOnInit() {
-    
-  }
-
 }

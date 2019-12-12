@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ISkill,LevelType } from './skill.model';
+import { ISkill, LevelType } from './skill.model';
 
 @Injectable({
   providedIn: 'root'
 })
+
+/*
+ * This service handles retrieving skills for other components.
+ * Normally this service would handle calls to a db but this is just for a static
+ * webpage so I can get away with hardcoding skills.
+ */
 export class SkillService {
   getSkills():ISkill[]{
     return SKILLS
   }
 
+//This function will trim the description field for the card view
+//on the skilll page.
 public GetTrimmedSkillDescription(skill:ISkill):String
 {
   return skill.descript.substring(0,skill.descript.indexOf("."))+"..."
@@ -17,6 +25,7 @@ public GetTrimmedSkillDescription(skill:ISkill):String
   constructor() { }
 }
 
+//Define all of the skill data
 const SKILLS: ISkill[] = [
   {
     descript:"Strong Java experience achieved through coursework and work experience. Many courses at Carleton were Java specific. They focused on teaching the fundamentals of object oriented programing. Additionally other tools were explored such as the Spring framework to make web apps, HQL for ORM and JUnit for testing. All of these skills were further developed through my year long coop position at TravelClick.",
