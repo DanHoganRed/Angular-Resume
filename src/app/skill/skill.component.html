@@ -1,21 +1,10 @@
 <div class="card-group">
   <div *ngFor="let skill of skills; index as i">
-      <div *ngIf="skill==null; else notShow">
+      <div *ngIf="skill===null; else notShow">
           <skill-detailed-card [index]="i" [ngbCollapse]="isCollapsed"></skill-detailed-card>
         </div>
         <ng-template #notShow>
             <skill-card [skill]="skill" [index]="i"></skill-card>
         </ng-template>
-    <!--div *ngIf="addBreak(i); else otherContent">
-      <div>Test1</div>
-        <skill-detailed-card [index]="i" [ngbCollapse]="isCollapsed"></skill-detailed-card>
-    </div>
-    <ng-template id="#otherContent">
-        <div>Test2</div>
-        <skill-card [skill]="skill" [index]="i"></skill-card>
-    </ng-template-->
-    
-    <!--/ng-template-->
-    <!------------------------->
   </div>
 </div>

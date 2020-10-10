@@ -44,5 +44,7 @@ export class AppComponent implements OnInit, OnDestroy{
     var point2 = width*0.245+","+height*0.53;
     var point3 = width*0.173+","+height*0.77;
     $('#ArrowArea')[0]["coords"] = point1+","+point2+","+point3;//I have to temporarily set the coordinates through jQuery. I should have put more of the index.html content in app.component.html
+
+    $('#ArrowArea')[0]['cursor'] = 'pointer';
   }
 }

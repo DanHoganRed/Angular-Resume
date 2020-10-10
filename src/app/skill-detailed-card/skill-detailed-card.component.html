@@ -1,3 +1,4 @@
+<!--div class="collapse" id="cardCollapse" [ngbCollapse]="isCollapsed" style="padding: 0" [isAnimated]="true" #details-->
 <div class="collapse" id="cardCollapse" [ngbCollapse]="isCollapsed" style="padding: 0" #details>
     <div class="row detailsRow" *ngIf="skill!=null" #details>
       <div class="col-3">
@@ -18,4 +19,4 @@
         <p>{{skill.descript}}</p>
       </div>
     </div>
-</div>
+<!--/div-->
