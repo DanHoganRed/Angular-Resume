@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
@@ -11,7 +9,7 @@ import { appRoutes } from './routes';
 import { SkillCardComponent } from './skill-card/skill-card.component';
 import { SkillDetailedCardComponent } from './skill-detailed-card/skill-detailed-card.component';
 import { SkillComponent } from './skill/skill.component';
-
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -24,10 +22,9 @@ import { SkillComponent } from './skill/skill.component';
     SkillDetailedCardComponent
   ],
   imports: [
+    NgbModule,
+    RouterModule,
     BrowserModule,
-    NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
-    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
