@@ -1,0 +1,13 @@
+    <nav class="navbar navbar-default border d-flex justify-content-end" style="background:#4c849985">
+    <div class="mr-4">
+      <ul class="nav nav-pills">
+       <li>      
+          <div class="navbar-header mr-4">
+            <a class="navbar-brand" href="#">Dan Hogan</a>
+          </div>
+        </li>
+        <li class="nav-item" (click)='slider.setCurrentSlide(0)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 0 ? 'active':'' ">Bio</button></li>
+        <li class="nav-item" (click)='slider.setCurrentSlide(1)'><button class="nav-link" [ngClass]="slider.getCurrentSlide() === 1 ? 'active':'' ">Skills</button></li>
+      </ul>
+    </div>
+  </nav>
