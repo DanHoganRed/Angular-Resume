@@ -7,6 +7,7 @@ import { SkillComponent } from './skill.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { SkillDetailService } from './shared/skill-detail.service';
 import { SkillService } from './shared/skill.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SkillService } from './shared/skill.service';
     NgbModule,
     RouterModule,
     BrowserModule,
+    SharedModule
   ],
   providers: [SkillDetailService,SkillService],
 })

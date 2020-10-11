@@ -15,13 +15,6 @@ export class SkillService {
     return SKILLS
   }
 
-//This function will trim the description field for the card view
-//on the skilll page.
-public GetTrimmedSkillDescription(skill:ISkill):String
-{
-  return skill.descript.substring(0,skill.descript.indexOf("."))+"..."
-}
-
   constructor() { }
 }
 
