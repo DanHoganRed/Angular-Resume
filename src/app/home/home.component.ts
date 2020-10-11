@@ -4,7 +4,7 @@ import { SlideService } from '../slide.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 /**
  * This component control the home page layout. Uses the slider service 

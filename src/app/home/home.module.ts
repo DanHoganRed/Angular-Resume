@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { HomeModule } from './home/home.module';
-import { NavBarComponent } from './nav/navbar.component';
+import { HomeComponent } from './home.component';
+import { BioComponent } from './bio/bio.component';
+import { SkillModule } from './skill/skill.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavBarComponent
+    HomeComponent,
+    BioComponent,
+  ],
+  exports: [
+    HomeComponent,
+    BioComponent,
   ],
   imports: [
     NgbModule,
     RouterModule,
     BrowserModule,
-    HomeModule,
+    SkillModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: []
 })
-export class AppModule {}
+export class HomeModule {}

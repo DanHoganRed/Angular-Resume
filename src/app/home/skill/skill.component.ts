@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ISkill, LevelType } from '../skill.model';
-import { SkillService } from '../skill.service';
+import { ISkill, LevelType } from './shared/skill.model';
+import { SkillService } from './shared/skill.service';
 
 @Component({
   selector: 'app-skill',
   templateUrl: './skill.component.html',
-  styleUrls: ['./skill.component.css']
+  styleUrls: ['./skill.component.scss']
 })
 /**
  * This class handles the population of the skill cards in the card group.

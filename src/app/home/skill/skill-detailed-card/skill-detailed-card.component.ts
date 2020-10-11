@@ -1,11 +1,11 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { SkillDetailService } from '../skill-detail.service';
-import { ISkill, LevelType } from '../skill.model';
+import { SkillDetailService } from '../shared/skill-detail.service';
+import { ISkill, LevelType } from '../shared/skill.model';
 
 @Component({
   selector: 'skill-detailed-card',
   templateUrl: './skill-detailed-card.component.html',
-  styleUrls: ['./skill-detailed-card.component.css']
+  styleUrls: ['./skill-detailed-card.component.scss']
 })
 /**
  * This class controls the details pane for a selected skill.

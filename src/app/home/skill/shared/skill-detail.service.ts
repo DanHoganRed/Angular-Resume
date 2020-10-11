@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SkillDetailedCardComponent } from './skill-detailed-card/skill-detailed-card.component';
+import { SkillDetailedCardComponent } from '../skill-detailed-card/skill-detailed-card.component';
 
 @Injectable({
   providedIn: 'root'

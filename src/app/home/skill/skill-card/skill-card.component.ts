@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { SkillDetailService } from '../skill-detail.service';
-import { ISkill, LevelType } from '../skill.model';
-import { SkillService } from '../skill.service';
+import { SkillDetailService } from '../shared/skill-detail.service';
+import { ISkill, LevelType } from '../shared//skill.model';
+import { SkillService } from '../shared/skill.service';
 
 @Component({
   selector: 'skill-card',
   templateUrl: './skill-card.component.html',
-  styleUrls: ['./skill-card.component.css']
+  styleUrls: ['./skill-card.component.scss']
 })
 /**
  * Component for a skill card. When View Experience is clicked this class will call the
