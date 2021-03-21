@@ -310,25 +310,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 var SkillDetailService = /** @class */ (function () {
-    /*
-     * In order to keep track of each card in the card group I
-     * have keep their index in the card group in mind. The endIndexs
-     * array keeps track of the indexes in the card group that would be
-     * at the end of the row where the details will be. The detailsPanes
-     * object is and instance of those details row.
-     */
     function SkillDetailService() {
-        this.endIndexs = new Array();
+        this.rowLength = 0;
         this.detailPanes = new Array();
     }
     /*
-     * When the skill cards are being populated in the card group and
-     * and the end of a row is found this method is called so that the
-     * created skills detail card is added to the service for use.
+     * All of the detail panes are added to the service.
      */
     SkillDetailService.prototype.add = function (SkillDetailCard, index) {
-        this.endIndexs.push(index);
         this.detailPanes.push(SkillDetailCard);
+    };
+    /*
+     * The number of cards per row depending on the screen size.
+     */
+    SkillDetailService.prototype.setRowLength = function (l) {
+        this.rowLength = l;
     };
     /**
      * This method is called when the view experience button is clicked.
@@ -336,18 +332,22 @@ var SkillDetailService = /** @class */ (function () {
      * the correct details pane.
      */
     SkillDetailService.prototype.expand = function (index, skill) {
-        var count = 0;
-        var stop = false; //Stop at the first suitable details pane found
-        //Check each skill details pane position. Expand the details pane 
-        //with an index that is the first to be greater than the selected card index.  
-        this.endIndexs.forEach(function (i) {
-            if (!stop && index <= i) {
-                this.detailPanes[count].skill = skill;
-                this.detailPanes[count].expandCollapse(index);
-                stop = true;
+        var openIndex = 0;
+        //Get the remaining positions until the end of the row.
+        var offset = this.rowLength - ((index + 1) % this.rowLength);
+        // if already the last position in the row.
+        if (offset === this.rowLength) {
+            openIndex = index;
+        }
+        else {
+            openIndex = index + offset;
+            // if you overshoot the last index.
+            if (openIndex >= this.detailPanes.length) {
+                openIndex = this.detailPanes.length - 1;
             }
-            count++;
-        }, this);
+        }
+        this.detailPanes[openIndex].skill = skill;
+        this.detailPanes[openIndex].expandCollapse(index);
     };
     SkillDetailService.ctorParameters = function () { return []; };
     SkillDetailService = __decorate([
@@ -356,7 +356,8 @@ var SkillDetailService = /** @class */ (function () {
         })
         /*
          * This service is used for displaying for skill data in the
-         * expanded details row.
+         * expanded details row. It functions by expanding the last details pane
+         * in a row through some calculations.
          */
         ,
         __metadata("design:paramtypes", [])
@@ -390,7 +391,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"card-group\">\r\n  <div *ngFor=\"let skill of skills; index as i\">\r\n      <div *ngIf=\"skill===null; else notShow\">\r\n          <skill-detailed-card [index]=\"i\" [ngbCollapse]=\"isCollapsed\"></skill-detailed-card>\r\n        </div>\r\n        <ng-template #notShow>\r\n            <skill-card [skill]=\"skill\" [index]=\"i\"></skill-card>\r\n        </ng-template>\r\n  </div>\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("  <div class=\"row\">\r\n      <ng-container *ngFor=\"let skill of skills; index as i\">\r\n        <div class=\"col-12 col-sm-6 col-lg-4 px-0\">\r\n          <skill-card [skill]=\"skill\" [index]=\"i\"></skill-card>   \r\n       </div>\r\n       <skill-detailed-card [index]=\"i\" ></skill-detailed-card>\r\n    </ng-container>\r\n  </div>");
 
 /***/ }),
 
@@ -403,7 +404,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".card {\n  min-width: 250px;\n  max-width: 250px;\n  height: 450px;\n  background: #00000045;\n}\n\n.card-text {\n  min-height: 100px;\n  max-height: 100px;\n}\n\n.btn {\n  color: whitesmoke;\n  border-color: whitesmoke;\n}\n\np {\n  margin: 0 0 50px 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9za2lsbC9za2lsbC1jYXJkL3NraWxsLWNhcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsYUFBQTtFQUNBLHFCQUFBO0FBQ0o7O0FBQ0E7RUFDSSxpQkFBQTtFQUNBLGlCQUFBO0FBRUo7O0FBQ0E7RUFDQSxpQkFBQTtFQUNBLHdCQUFBO0FBRUE7O0FBQ0E7RUFDSSxrQkFBQTtBQUVKIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9za2lsbC9za2lsbC1jYXJkL3NraWxsLWNhcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2FyZCB7XHJcbiAgICBtaW4td2lkdGg6IDI1MHB4O1xyXG4gICAgbWF4LXdpZHRoOiAyNTBweDtcclxuICAgIGhlaWdodDogNDUwcHg7XHJcbiAgICBiYWNrZ3JvdW5kOiAjMDAwMDAwNDU7XHJcbn1cclxuLmNhcmQtdGV4dHtcclxuICAgIG1pbi1oZWlnaHQ6MTAwcHg7XHJcbiAgICBtYXgtaGVpZ2h0OjEwMHB4O1xyXG59XHJcblxyXG4uYnRuIHtcclxuY29sb3I6IHdoaXRlc21va2U7XHJcbmJvcmRlci1jb2xvcjogd2hpdGVzbW9rZTtcclxufVxyXG5cclxucHtcclxuICAgIG1hcmdpbjogMCAwIDUwcHggMDtcclxufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".card {\n  width: 100%;\n  height: 100%;\n  background: #00000045;\n}\n\n.card-text {\n  min-height: 100px;\n  max-height: 100px;\n}\n\n.btn {\n  color: whitesmoke;\n  border-color: whitesmoke;\n}\n\np {\n  margin: 0 0 50px 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9za2lsbC9za2lsbC1jYXJkL3NraWxsLWNhcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0FBQ0o7O0FBQ0E7RUFDSSxpQkFBQTtFQUNBLGlCQUFBO0FBRUo7O0FBQ0E7RUFDQSxpQkFBQTtFQUNBLHdCQUFBO0FBRUE7O0FBQ0E7RUFDSSxrQkFBQTtBQUVKIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9za2lsbC9za2lsbC1jYXJkL3NraWxsLWNhcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2FyZCB7XHJcbiAgICB3aWR0aDoxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZDogIzAwMDAwMDQ1O1xyXG59XHJcbi5jYXJkLXRleHR7XHJcbiAgICBtaW4taGVpZ2h0OjEwMHB4O1xyXG4gICAgbWF4LWhlaWdodDoxMDBweDtcclxufVxyXG5cclxuLmJ0biB7XHJcbmNvbG9yOiB3aGl0ZXNtb2tlO1xyXG5ib3JkZXItY29sb3I6IHdoaXRlc21va2U7XHJcbn1cclxuXHJcbnB7XHJcbiAgICBtYXJnaW46IDAgMCA1MHB4IDA7XHJcbn0iXX0= */");
 
 /***/ }),
 
@@ -470,6 +471,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _shared_skill_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/skill.model */ "Z1tO");
 /* harmony import */ var _shared_skill_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/skill.service */ "qXi0");
+/* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/layout */ "0MNC");
+/* harmony import */ var _shared_skill_detail_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/skill-detail.service */ "FKj0");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -484,37 +487,42 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var SkillComponent = /** @class */ (function () {
-    function SkillComponent(skillService) {
+    function SkillComponent(skillService, breakpointObserver, skillDetailService) {
+        var _this = this;
         this.skillService = skillService;
+        this.breakpointObserver = breakpointObserver;
+        this.skillDetailService = skillDetailService;
         this.levelType = _shared_skill_model__WEBPACK_IMPORTED_MODULE_3__["LevelType"];
         this.index = 1;
+        // keep track of the screen size and adjust the row lengths accordingly.  
+        breakpointObserver.observe([
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].XLarge,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].Large,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].Medium,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].Small,
+            _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].XSmall,
+        ]).subscribe(function (result) {
+            if (_this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].XLarge) || _this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].Large)) {
+                _this.skillDetailService.setRowLength(3);
+            }
+            else if (_this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].Medium) || _this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].Small)) {
+                _this.skillDetailService.setRowLength(2);
+            }
+            else if (_this.breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["Breakpoints"].XSmall)) {
+                _this.skillDetailService.setRowLength(1);
+            }
+        });
     }
     SkillComponent.prototype.ngOnInit = function () {
-        this.skills = this.skillService.getSkills(); //Populate the skills with the skills from the skill service.
-        /**
-         * I have to do some calculations to figure out where to put the
-         * details pane. The idea is to look at the screen size, side info size
-         * and card size to figure out how many cards can fit on the screen in
-         * a row before a break.
-         */
-        var cardRow = window.screen.width - document.getElementsByClassName('col-3')[0].clientWidth;
-        var cardW = 250;
-        this.index = cardRow / cardW;
-        this.index = Math.trunc(this.index); //On this index add a skill details row.
-        for (var i = 0; i < this.skills.length; i++) {
-            if (this.addBreak(i)) {
-                this.skills.splice(i, 0, null); //Add a null skill at the break indexes. Once the template is evaluated it will check for a null skill to populate with the skill details component
-                i++;
-            }
-        }
-        this.skills.splice(this.skills.length, 0, null); //Add final break
-    };
-    SkillComponent.prototype.addBreak = function (i) {
-        return ((i + 1) % (this.index + 1) == 0); //if that index is a multiple of the row length
+        this.skills = this.skillService.getSkills();
     };
     SkillComponent.ctorParameters = function () { return [
-        { type: _shared_skill_service__WEBPACK_IMPORTED_MODULE_4__["SkillService"] }
+        { type: _shared_skill_service__WEBPACK_IMPORTED_MODULE_4__["SkillService"] },
+        { type: _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["BreakpointObserver"] },
+        { type: _shared_skill_detail_service__WEBPACK_IMPORTED_MODULE_6__["SkillDetailService"] }
     ]; };
     SkillComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -526,7 +534,7 @@ var SkillComponent = /** @class */ (function () {
          * This class handles the population of the skill cards in the card group.
          */
         ,
-        __metadata("design:paramtypes", [_shared_skill_service__WEBPACK_IMPORTED_MODULE_4__["SkillService"]])
+        __metadata("design:paramtypes", [_shared_skill_service__WEBPACK_IMPORTED_MODULE_4__["SkillService"], _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_5__["BreakpointObserver"], _shared_skill_detail_service__WEBPACK_IMPORTED_MODULE_6__["SkillDetailService"]])
     ], SkillComponent);
     return SkillComponent;
 }());
@@ -676,7 +684,7 @@ var AppComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"background: #454444bd\">\r\n<nav-bar></nav-bar>\r\n  <div class=\"container no-gutters pt-5\">\r\n    <div class=\"row\">\r\n      <div class=\"col-3\">\r\n        <div>\r\n          <img src=\"./assets/images/59908517_457463458331413_1995375044749950976_n.jpg\" class=\"img-thumbnail profile-pic\" />\r\n        </div>\r\n        <div>\r\n          <ul class=\"mt-2\">\r\n            <li>\r\n              DanHoganRed@gmail.com\r\n            </li>\r\n            <li>\r\n              (613) 899-3407\r\n            </li>\r\n            <li>\r\n              Edmonton, AB Canada\r\n            </li>\r\n          </ul>\r\n          <div class=\"row mt-3\">\r\n            <div class=\"col-1 share-icon\">\r\n              <a href=\"https://github.com/DanHoganRed\">\r\n                <img src=\"../assets/images/GitHub-Mark-32px.png\">\r\n              </a>\r\n            </div>\r\n            <div class=\"col-1 mx-2 share-icon\">\r\n              <a href=\"https://www.linkedin.com/in/daniel-hogan-a83030a6\">\r\n                <img src=\"../assets/images/LI-In-Bug_cropped.png\">\r\n              </a>\r\n            </div>\r\n            <div class=\"col-1 share-icon\">\r\n              <a href=\"assets/DanHoganResume_2019_12_04.docx\">\r\n                <span class=\"material-icons md-36\" style=\"font-size: 36px;\"><!--TODO figure out why the sizing utility class didn't work.-->\r\n                  description\r\n                  </span>\r\n              </a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <!--div class=\"ui list\">\r\n        <div class=\"item\">\r\n          <i class=\"users icon\"></i>\r\n          <div class=\"content\">\r\n            Semantic UI\r\n          </div>\r\n        </div>\r\n        <div class=\"item\">\r\n          <i class=\"marker icon\"></i>\r\n          <div class=\"content\">\r\n            New York, NY\r\n          </div>\r\n        </div>\r\n        <div class=\"item\">\r\n          <i class=\"mail icon\"></i>\r\n          <div class=\"content\">\r\n            <a href=\"mailto:jack@semantic-ui.com\">jack@semantic-ui.com</a>\r\n          </div>\r\n        </div>\r\n        <div class=\"item\">\r\n          <i class=\"linkify icon\"></i>\r\n          <div class=\"content\">\r\n            <a href=\"http://www.semantic-ui.com\">semantic-ui.com</a>\r\n          </div>\r\n        </div>\r\n      </div-->\r\n      <div class=\"col-12 col-sm-6 col-md-9\">\r\n        <app-home></app-home>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"background: #454444bd\">\r\n<nav-bar></nav-bar>\r\n  <div class=\"container pt-5\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12 col-md-4 col-lg-3\">\r\n        <div>\r\n          <img src=\"./assets/images/59908517_457463458331413_1995375044749950976_n.jpg\" class=\"img-thumbnail profile-pic\" />\r\n        </div>\r\n        <div>\r\n          <ul class=\"mt-2\">\r\n            <li>\r\n              DanHoganRed@gmail.com\r\n            </li>\r\n            <li>\r\n              (613) 899-3407\r\n            </li>\r\n            <li>\r\n              Edmonton, AB Canada\r\n            </li>\r\n          </ul>\r\n          <div class=\"row mt-3\">\r\n            <div class=\"col-1 share-icon\">\r\n              <a href=\"https://github.com/DanHoganRed\">\r\n                <img src=\"assets/images/GitHub-Mark-32px.png\">\r\n              </a>\r\n            </div>\r\n            <div class=\"col-1 mx-2 share-icon\">\r\n              <a href=\"https://www.linkedin.com/in/daniel-hogan-a83030a6\">\r\n                <img src=\"assets/images/LI-In-Bug_cropped.png\">\r\n              </a>\r\n            </div>\r\n            <div class=\"col-1 share-icon\">\r\n              <a href=\"assets/DanHoganResume.pdf\">\r\n                <span class=\"material-icons md-36\" style=\"font-size: 36px;\"><!--TODO figure out why the sizing utility class didn't work.-->\r\n                  description\r\n                  </span>\r\n              </a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12 col-md-8 col-lg-9\">\r\n        <app-home></app-home>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>");
 
 /***/ }),
 
@@ -689,7 +697,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class='card'>\n<div [ngSwitch]=\"skill?.level\">\n    <img *ngSwitchCase=\"levelType.LEVEL_ONE\" class=\"card-img-top\" src=\"assets\\images\\Skill_1.png\"\n      alt=\"Card image cap\">\n    <img *ngSwitchCase=\"levelType.LEVEL_TWO\" class=\"card-img-top\" src=\"assets\\images\\Skill_2.png\"\n      alt=\"Card image cap\">\n    <img *ngSwitchCase=\"levelType.LEVEL_THREE\" class=\"card-img-top\" src=\"assets\\images\\Skill_3.png\"\n      alt=\"Card image cap\">\n    <img *ngSwitchCase=\"levelType.LEVEL_FOUR\" class=\"card-img-top\" src=\"assets\\images\\Skill_4.png\"\n      alt=\"Card image cap\">\n    <img *ngSwitchDefault class=\"card-img-top\" src=\"assets\\images\\Skill_1.png\" alt=\"Card image cap\">\n  </div>\n  <div class=\"card-body\">\n    <h5 class=\"card-title\">{{skill.title}}</h5>\n    <p class=\"card-text\">{{ skill.descript | truncate:100 }}</p>\n    <button class=\"btn btn-lg btn-outline-primary\" (click)=\"expandDetails()\">View Experience</button>\n  </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class='card px-4'>\r\n<div [ngSwitch]=\"skill?.level\">\r\n    <img *ngSwitchCase=\"levelType.LEVEL_ONE\" class=\"card-img-top\" src=\"assets\\images\\Skill_1.png\"\r\n      alt=\"Card image cap\">\r\n    <img *ngSwitchCase=\"levelType.LEVEL_TWO\" class=\"card-img-top\" src=\"assets\\images\\Skill_2.png\"\r\n      alt=\"Card image cap\">\r\n    <img *ngSwitchCase=\"levelType.LEVEL_THREE\" class=\"card-img-top\" src=\"assets\\images\\Skill_3.png\"\r\n      alt=\"Card image cap\">\r\n    <img *ngSwitchCase=\"levelType.LEVEL_FOUR\" class=\"card-img-top\" src=\"assets\\images\\Skill_4.png\"\r\n      alt=\"Card image cap\">\r\n    <img *ngSwitchDefault class=\"card-img-top\" src=\"assets\\images\\Skill_1.png\" alt=\"Card image cap\">\r\n  </div>\r\n  <div class=\"card-body\">\r\n    <h5 class=\"card-title\">{{skill.title}}</h5>\r\n    <p class=\"card-text\">{{ skill.descript | truncate:100 }}</p>\r\n    <button class=\"btn btn-lg btn-outline-primary\" (click)=\"expandDetails()\">View Experience</button>\r\n  </div>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -847,7 +855,7 @@ var SkillModule = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hvbWUvYmlvL2Jpby5jb21wb25lbnQuc2NzcyJ9 */");
+/* harmony default export */ __webpack_exports__["default"] = ("a {\n  color: white !important;\n  font-style: italic;\n}\n\na:hover {\n  color: white !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9iaW8vYmlvLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUUsdUJBQUE7RUFDQSxrQkFBQTtBQUFGOztBQUVBO0VBRUUsdUJBQUE7QUFBRiIsImZpbGUiOiJzcmMvYXBwL2hvbWUvYmlvL2Jpby5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImFcclxue1xyXG4gIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG4gIGZvbnQtc3R5bGU6IGl0YWxpYztcclxufVxyXG5hOmhvdmVyXHJcbntcclxuICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufSJdfQ== */");
 
 /***/ }),
 
@@ -1110,7 +1118,7 @@ var SkillDetailedCardComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("  <h2>\r\n      Welcome to my Resume! \r\n  </h2>\r\n\r\n  <p>\r\n      I am a Software Developer from Ottawa Ontario. This resume was developed in part to advertise myself but also as a way for me to learn Angular and I had a great experience making it! Check out this websites source code <a href=\"https://github.com/DanHoganRed/Angular-Resume\">here</a>. If you’re interested in a traditional resume please see the sidebar document download link. My main interests are currently .Net development, Front-End Development and Mobile Development. I am most comfortable doing back end work however I am exploring more front-end development as of late. You can view a full briefing of my skills in the skills section. <b>Please keep in mind that I am still working on this site so some things may not currently be working.</b>  \r\n  </p> \r\n\r\n  <h3>\r\n      Work Experience  \r\n  </h3>\r\n  <h4>\r\n      Avanade\t \t \t \t \t \t \t                      June 2018-Febuary 2019\r\n  </h4>\r\n  <ul>\r\n    <li>\r\n        Developing a custom Dynamics 365 solution within an Agile work environment. Development included writing CRM plugins in C#, writing Javascript embedded in CRM Forms and writing custom web resources using Javascript libraries such as JQuery and Kendo UI.\r\n    </li>\r\n    <li>\r\n        Aiding in the design and creation of the CICD process within the project in TFS. Work included creating build and release definitions as well as assisting to define development process within multiple environments. Additional powershell scripts were written to automate installation and configuration of the project development environment.\r\n    </li>\r\n  </ul>\r\n  <h3>\r\n      Education  \r\n  </h3>\r\n  <h4>\r\n      Carleton University\t \t \t \t \t \t \t          September 2013-April 2018\r\n  </h4>\r\n  <p>\r\n      Bachelor of Engineering, Software, Coop    \r\n  </p> \r\n  <h3>\r\n      Coop Positions  \r\n  </h3>\r\n  <h4>\r\n      Core OS Developer                                                                                                               May 2017-August 2017\r\n      Blackberry QNX, Kanata, Ontario       \r\n  </h4>\r\n\r\n      <ul>\r\n        <li>\r\n            Developing unit tests for the QNX Kernel in C in order to fulfill ISO 26262 safety compliance. Unit tests were additionally used a vehicle to gain comprehensive knowledge of the OS as well as through other developers, demos and documentation.\r\n        </li>\r\n        <li>\r\n            Improving the unit test framework to support ARM and AARCH64 CPU architectures with knowledge of the GNU C compiler, Makefiles and Linux shell scripts. \r\n        </li>\r\n        <li>\r\n            Finding and documenting bugs in the Kernel.\r\n        </li>\r\n      </ul> \r\n \r\n  <h4>\r\n      Integration Developer                                                                                              January 2016-December 2016\r\n      TravelClick, Ottawa, Ontario           \r\n  </h4>\r\n\r\n      <ul>\r\n        <li>\r\n            Developing, installing and maintaining remote integrations for TravelClick GMS. Development was done using Java 8 in Eclipse using Git for version control. Often required analyzing data and writing queries to extract it.\r\n        </li>\r\n        <li>\r\n            Development of TravelClick Abandonment services which would require writing Javascript to track users through the online booking process of a hotel using JQuery.\r\n        </li>\r\n        <li>\r\n            Working on general tasks often requiring isolating and fixing software bugs or searching through large scale log archives on specific servers using bash.\r\n        </li>\r\n      </ul> \r\n\r\n  <h4>\r\n      Avionics Software Tester                                                                                                     May 2015-August 2015\r\n      Edgewater Computer Systems, Kanata, Ontario             \r\n  </h4>\r\n\r\n      <ul>\r\n        <li>\r\n            Writing C code to verify low level requirements for software developed by Edgewater Computer Systems. This testing was done so that the network card part of the CANIC project can become air-worthy by the D0-178B DAL C verification requirements. \r\n        </li>\r\n      </ul> \r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("  <h2>\r\n      Welcome to my Resume! \r\n  </h2>\r\n\r\n  <p>\r\n      I am a Software Developer from Ottawa Ontario. This resume was developed in part to advertise myself but also as a way for me to learn Angular and I had a great experience making it! Check out this websites source code <a href=\"https://github.com/DanHoganRed/Angular-Resume\">here</a>. If you’re interested in a traditional resume please see the sidebar document download link. My main interests are currently .Net development, Front-End Development and Mobile Development. I am most comfortable doing back end work however I am exploring more front-end development as of late. You can view a full briefing of my skills in the skills section.  \r\n  </p> \r\n\r\n  <h3>\r\n      Work Experience  \r\n  </h3>\r\n  <h4>\r\n    Alberta Motor Association\t \t \t \t \t \t \t                      Febuary 2019-Present\r\n</h4>\r\n<ul>\r\n  <li>\r\n    Web development of new features and improvements of AMA's website. Developing with the latest versions of Angular and ASP.NET Web Api.   </li>\r\n  <li>\r\n    Writing SQL scripts to import data as well as develop schema changes for the database in order to support new website features.  </li>\r\n    <li>\r\n    Collaborating with the development team in an Agile setting, taking advantage of technologies such as Microsoft DevOps and Git.  </li>\r\n</ul>\r\n  <h4>\r\n      Avanade\t \t \t \t \t \t \t                      June 2018-Febuary 2019\r\n  </h4>\r\n  <ul>\r\n    <li>\r\n        Developing a custom Dynamics 365 solution within an Agile work environment. Development included writing CRM plugins in C#, writing Javascript embedded in CRM Forms and writing custom web resources using Javascript libraries such as JQuery and Kendo UI.\r\n    </li>\r\n    <li>\r\n        Aiding in the design and creation of the CICD process within the project in TFS. Work included creating build and release definitions as well as assisting to define development process within multiple environments. Additional powershell scripts were written to automate installation and configuration of the project development environment.\r\n    </li>\r\n  </ul>\r\n  <h3>\r\n      Education  \r\n  </h3>\r\n  <h4>\r\n      Carleton University\t \t \t \t \t \t \t          September 2013-April 2018\r\n  </h4>\r\n  <p>\r\n      Bachelor of Engineering, Software, Coop    \r\n  </p> \r\n  <h3>\r\n      Coop Positions  \r\n  </h3>\r\n  <h4>\r\n      Core OS Developer                                                                                                               May 2017-August 2017\r\n      Blackberry QNX, Kanata, Ontario       \r\n  </h4>\r\n\r\n      <ul>\r\n        <li>\r\n            Developing unit tests for the QNX Kernel in C in order to fulfill ISO 26262 safety compliance. Unit tests were additionally used a vehicle to gain comprehensive knowledge of the OS as well as through other developers, demos and documentation.\r\n        </li>\r\n        <li>\r\n            Improving the unit test framework to support ARM and AARCH64 CPU architectures with knowledge of the GNU C compiler, Makefiles and Linux shell scripts. \r\n        </li>\r\n        <li>\r\n            Finding and documenting bugs in the Kernel.\r\n        </li>\r\n      </ul> \r\n \r\n  <h4>\r\n      Integration Developer                                                                                              January 2016-December 2016\r\n      TravelClick, Ottawa, Ontario           \r\n  </h4>\r\n\r\n      <ul>\r\n        <li>\r\n            Developing, installing and maintaining remote integrations for TravelClick GMS. Development was done using Java 8 in Eclipse using Git for version control. Often required analyzing data and writing queries to extract it.\r\n        </li>\r\n        <li>\r\n            Development of TravelClick Abandonment services which would require writing Javascript to track users through the online booking process of a hotel using JQuery.\r\n        </li>\r\n        <li>\r\n            Working on general tasks often requiring isolating and fixing software bugs or searching through large scale log archives on specific servers using bash.\r\n        </li>\r\n      </ul> \r\n\r\n  <h4>\r\n      Avionics Software Tester                                                                                                     May 2015-August 2015\r\n      Edgewater Computer Systems, Kanata, Ontario             \r\n  </h4>\r\n\r\n      <ul>\r\n        <li>\r\n            Writing C code to verify low level requirements for software developed by Edgewater Computer Systems. This testing was done so that the network card part of the CANIC project can become air-worthy by the D0-178B DAL C verification requirements. \r\n        </li>\r\n      </ul> \r\n");
 
 /***/ }),
 
@@ -1174,13 +1182,19 @@ var SKILLS = [
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_FOUR
     },
     {
-        descript: "Strong experience of C# achieved through coursework and my position at Avanade. Avanade is a company that specializes in .Net experience. Because of this I have been heavily exposed to C# throughout my work. Tools used while at Avanade include the CRM.SDK, ASP.Net Framework, Entity Framework and Identity Framework. Additionally my 4th year engineering project at Carleton utilized Xamarin for mobile development done in C#.",
+        descript: "Strong experience of C# achieved through daily development at AMA and Avanade. At AMA I worked with ASP.NET and the entity framework to build AMA's website backend. At Avanade I focused mainly on developing Dynamics 365 plugins utilizing the CRM SDK. Additionally my 4th year engineering project at Carleton utilized Xamarin for mobile development done in C#.",
         time: "SDF",
         title: "C#",
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_FOUR
     },
     {
-        descript: "Experienced with Javascript through basic DOM manipulation with JQuery as well as interfacing with backend services through AJAX calls. Courses at Carleton included light front-end development including Javascript. Additionally my work at Travelclick Abandonment Services was strictly using Javascript to further bolster my understanding. Development at Avanade also required developing with Javascript for custom CRM form logic and well as custom web resources to be used in CRM.",
+        descript: "Skills developed with Angular through daily development at AMA, online courses and personal projects. AMA used Angular as a frontend framework to support their website. Additionally I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume using Angular to put these skills into practice.    ",
+        time: "SDF",
+        title: "Angular",
+        level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_THREE
+    },
+    {
+        descript: "Experienced with Javascript and Typescript through 3+ years combined professional experience at AMA, Avanade and TravelClick. Courses at Carleton included front-end development with Javascript as well. Comfortable writing logic to process data, manuipulate the DOM, call external API's and using external libraries such as JQuery or RXJS.",
         time: "SDF",
         title: "JavaScript",
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_THREE
@@ -1192,19 +1206,13 @@ var SKILLS = [
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_THREE
     },
     {
-        descript: "I am very familiar with Agile Development both in practice and in theory. In Carleton I attended a course dedicated to development processes with a large portion covering Agile Development. Additionally Agile development was the ideology used in both TravelClick and Avanade.",
+        descript: "I am very familiar with Agile Development both in practice and in theory. In Carleton I attended a course dedicated to development processes with a large portion covering Agile Development. Additionally Agile development was the ideology used in both TravelClick, Avanade and AMA.",
         time: "SDF",
         title: "Agile Development",
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_THREE
     },
     {
-        descript: "Skills developed with Angular through online courses and personal projects. I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume using Angular 6 to put these skills into practice.    ",
-        time: "SDF",
-        title: "Angular",
-        level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_TWO
-    },
-    {
-        descript: "I am most familar and effecient using Azure Devops and Git. I have used Git while at Carleton University for multiple projects. I have also used Git for all development done at Travelclick. Additionally I used Azure Devops for source control while at Avanade.",
+        descript: "I am most familar and effecient using TFS and Git. I have used Git while at Carleton University for multiple projects. I have also used Git for all development done at Travelclick and AMA. Additionally I used TFS for source control while at Avanade.",
         time: "SDF",
         title: "Source Control",
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_THREE
@@ -1222,7 +1230,7 @@ var SKILLS = [
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_TWO
     },
     {
-        descript: "Strong experience writing complex SQL queries and statement. Experience through programming courses taken in carleton including a database specific course where I learned additional theory in database design. Additional experience using MySQL in TravelClick and SQL Server at Avanade. However I have not been put in a role of a dba in charge of maintaining or optimizing a database.",
+        descript: "Strong experience writing complex SQL queries and statements. Experience through programming courses taken in carleton including a database specific course where I learned additional theory in database design. Additional experience using MySQL in TravelClick and SQL Server at Avanade and AMA. However I have not been put in a role of a dba in charge of maintaining or optimizing a database.",
         time: "SDF",
         title: "SQL",
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_THREE
@@ -1238,12 +1246,6 @@ var SKILLS = [
         time: "SDF",
         title: "Android Mobile Dev",
         level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_TWO
-    },
-    {
-        descript: "Machine Learning is an exciting and interesting subject for me. However I have not yet gotten any hands-on experience doing it. I understand some of the basic concepts associated with Machine Learning however this is a subject I am still learning and I'm looking to get experience with.",
-        time: "SDF",
-        title: "Machine Learning",
-        level: _skill_model__WEBPACK_IMPORTED_MODULE_1__["LevelType"].LEVEL_ONE
     },
     {
         descript: "I have light experience with Python scripting in school. I completed a course dedicated to lightweight python scripting such as writing a script to apply filters on images and a script to do word counts on a text file using regression.",
@@ -1265,7 +1267,7 @@ var SKILLS = [
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".profile-pic {\n  max-width: 250px;\n  max-height: 350px;\n  filter: grayscale(1);\n}\n\nul {\n  list-style-type: none;\n  padding: 0;\n  margin: 0;\n}\n\n.container {\n  padding: 10px 10px;\n  padding-left: 5%;\n  height: 100%;\n  min-height: -webkit-fill-available;\n  max-width: 100%;\n}\n\n.col-3 {\n  height: 100%;\n  min-height: -webkit-fill-available;\n}\n\n.no-gutters {\n  margin-right: 0;\n  margin-left: 0;\n}\n\n.row {\n  max-width: 100%;\n}\n\n.share-icon img {\n  width: 36px;\n  height: 35px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLG9CQUFBO0FBQ0o7O0FBQ0E7RUFDSSxxQkFBQTtFQUNBLFVBQUE7RUFDQSxTQUFBO0FBRUo7O0FBQ0U7RUFDRSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLGtDQUFBO0VBQ0EsZUFBQTtBQUVKOztBQUVBO0VBQ0UsWUFBQTtFQUNBLGtDQUFBO0FBQ0Y7O0FBRUE7RUFDRSxlQUFBO0VBQ0EsY0FBQTtBQUNGOztBQUVBO0VBQ0UsZUFBQTtBQUNGOztBQUVBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wcm9maWxlLXBpY3tcclxuICAgIG1heC13aWR0aDogMjUwcHg7XHJcbiAgICBtYXgtaGVpZ2h0OiAzNTBweDtcclxuICAgIGZpbHRlcjogZ3JheXNjYWxlKDEpO1xyXG59XHJcbnVsIHtcclxuICAgIGxpc3Qtc3R5bGUtdHlwZTogbm9uZTtcclxuICAgIHBhZGRpbmc6IDA7XHJcbiAgICBtYXJnaW46IDA7XHJcbiAgfVxyXG5cclxuICAuY29udGFpbmVyIHtcclxuICAgIHBhZGRpbmc6IDEwcHggMTBweDsgXHJcbiAgICBwYWRkaW5nLWxlZnQ6IDUlOyAgIFxyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgbWluLWhlaWdodDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcclxuICAgIG1heC13aWR0aDogMTAwJTtcclxufVxyXG5cclxuXHJcbi5jb2wtMyB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIG1pbi1oZWlnaHQ6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XHJcbn1cclxuXHJcbi5uby1ndXR0ZXJzIHtcclxuICBtYXJnaW4tcmlnaHQ6IDA7XHJcbiAgbWFyZ2luLWxlZnQ6IDA7XHJcbn1cclxuXHJcbi5yb3cge1xyXG4gIG1heC13aWR0aDogMTAwJTtcclxufVxyXG5cclxuLnNoYXJlLWljb24gaW1nIHtcclxuICB3aWR0aDogMzZweDtcclxuICBoZWlnaHQ6IDM1cHg7XHJcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".profile-pic {\n  max-width: 250px;\n  width: 100%;\n  max-height: 350px;\n  filter: grayscale(1);\n}\n\nul {\n  list-style-type: none;\n  padding: 0;\n  margin: 0;\n}\n\n.share-icon img {\n  width: 36px;\n  height: 35px;\n  filter: brightness(0) invert(1);\n}\n\na {\n  color: white !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxvQkFBQTtBQUNKOztBQUNBO0VBQ0kscUJBQUE7RUFDQSxVQUFBO0VBQ0EsU0FBQTtBQUVKOztBQUNBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSwrQkFBQTtBQUVGOztBQUNBO0VBRUUsdUJBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wcm9maWxlLXBpY3tcclxuICAgIG1heC13aWR0aDogMjUwcHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIG1heC1oZWlnaHQ6IDM1MHB4O1xyXG4gICAgZmlsdGVyOiBncmF5c2NhbGUoMSk7XHJcbn1cclxudWwge1xyXG4gICAgbGlzdC1zdHlsZS10eXBlOiBub25lO1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIG1hcmdpbjogMDtcclxuICB9XHJcblxyXG4uc2hhcmUtaWNvbiBpbWcge1xyXG4gIHdpZHRoOiAzNnB4O1xyXG4gIGhlaWdodDogMzVweDtcclxuICBmaWx0ZXI6IGJyaWdodG5lc3MoMCkgaW52ZXJ0KDEpO1xyXG59XHJcblxyXG5hXHJcbntcclxuICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufSJdfQ== */");
 
 /***/ }),
 
