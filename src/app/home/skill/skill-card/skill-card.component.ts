@@ -22,8 +22,6 @@ public levelType=LevelType
   
   }
 
-
-
   expandDetails()
   {
     this.skillDetailService.expand(this.index,this.skill);

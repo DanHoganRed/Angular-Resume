@@ -6,33 +6,32 @@ import { SkillDetailedCardComponent } from '../skill-detailed-card/skill-detaile
 })
 /*
  * This service is used for displaying for skill data in the 
- * expanded details row.
+ * expanded details row. It functions by expanding the last details pane 
+ * in a row through some calculations.
  */
 export class SkillDetailService {
-  endIndexs:Array<number>;
+  rowLength: number;
   detailPanes:Array<SkillDetailedCardComponent>;
 
-  /*
-   * In order to keep track of each card in the card group I
-   * have keep their index in the card group in mind. The endIndexs
-   * array keeps track of the indexes in the card group that would be
-   * at the end of the row where the details will be. The detailsPanes
-   * object is and instance of those details row.  
-   */
   constructor() {
-    this.endIndexs = new Array<number>();
+    this.rowLength = 0;
     this.detailPanes = new Array<SkillDetailedCardComponent>();
    }
 
   /*
-   * When the skill cards are being populated in the card group and
-   * and the end of a row is found this method is called so that the
-   * created skills detail card is added to the service for use.
+   * All of the detail panes are added to the service.
    */
   public add(SkillDetailCard,index)
   {
-    this.endIndexs.push(index);
     this.detailPanes.push(SkillDetailCard);
+  }
+
+  /*
+   * The number of cards per row depending on the screen size.
+   */
+  public setRowLength(l: number)
+  {
+    this.rowLength = l;
   }
 
   /**
@@ -42,20 +41,24 @@ export class SkillDetailService {
    */
   public expand(index,skill)
   {
-    var count = 0;
-    var stop = false;//Stop at the first suitable details pane found
-    //Check each skill details pane position. Expand the details pane 
-    //with an index that is the first to be greater than the selected card index.  
-    this.endIndexs.forEach(function(i)
+    let openIndex = 0;
+    //Get the remaining positions until the end of the row.
+    const offset = this.rowLength - ((index + 1) % this.rowLength);
+    // if already the last position in the row.
+    if(offset === this.rowLength)
     {
-      if(!stop && index <= i)
+      openIndex = index;
+    }
+    else{
+      openIndex = index + offset;
+      // if you overshoot the last index.
+      if(openIndex >= this.detailPanes.length)
       {
-        this.detailPanes[count].skill = skill;
-        this.detailPanes[count].expandCollapse(index);
-        stop=true;
+        openIndex = this.detailPanes.length-1;
       }
-      count++;
-      
-    },this)
+    }
+
+    this.detailPanes[openIndex].skill = skill;
+    this.detailPanes[openIndex].expandCollapse(index);
   }
 }

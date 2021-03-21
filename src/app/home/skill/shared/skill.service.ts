@@ -33,13 +33,19 @@ const SKILLS: ISkill[] = [
     level:LevelType.LEVEL_FOUR
   },
   {
-    descript:"Strong experience of C# achieved through coursework and my position at Avanade. Avanade is a company that specializes in .Net experience. Because of this I have been heavily exposed to C# throughout my work. Tools used while at Avanade include the CRM.SDK, ASP.Net Framework, Entity Framework and Identity Framework. Additionally my 4th year engineering project at Carleton utilized Xamarin for mobile development done in C#.",
+    descript:"Strong experience of C# achieved through daily development at AMA and Avanade. At AMA I worked with ASP.NET and the entity framework to build AMA's website backend. At Avanade I focused mainly on developing Dynamics 365 plugins utilizing the CRM SDK. Additionally my 4th year engineering project at Carleton utilized Xamarin for mobile development done in C#.",
     time:"SDF",
     title:"C#",
     level:LevelType.LEVEL_FOUR
   },
   {
-    descript:"Experienced with Javascript through basic DOM manipulation with JQuery as well as interfacing with backend services through AJAX calls. Courses at Carleton included light front-end development including Javascript. Additionally my work at Travelclick Abandonment Services was strictly using Javascript to further bolster my understanding. Development at Avanade also required developing with Javascript for custom CRM form logic and well as custom web resources to be used in CRM.",
+    descript:"Skills developed with Angular through daily development at AMA, online courses and personal projects. AMA used Angular as a frontend framework to support their website. Additionally I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume using Angular to put these skills into practice.    ",
+    time:"SDF",
+    title:"Angular",
+    level:LevelType.LEVEL_THREE
+  },
+  {
+    descript:"Experienced with Javascript and Typescript through 3+ years combined professional experience at AMA, Avanade and TravelClick. Courses at Carleton included front-end development with Javascript as well. Comfortable writing logic to process data, manuipulate the DOM, call external API's and using external libraries such as JQuery or RXJS.",
     time:"SDF",
     title:"JavaScript",
     level:LevelType.LEVEL_THREE
@@ -51,19 +57,13 @@ const SKILLS: ISkill[] = [
     level:LevelType.LEVEL_THREE
   },
   {
-    descript:"I am very familiar with Agile Development both in practice and in theory. In Carleton I attended a course dedicated to development processes with a large portion covering Agile Development. Additionally Agile development was the ideology used in both TravelClick and Avanade.",
+    descript:"I am very familiar with Agile Development both in practice and in theory. In Carleton I attended a course dedicated to development processes with a large portion covering Agile Development. Additionally Agile development was the ideology used in both TravelClick, Avanade and AMA.",
     time:"SDF",
     title:"Agile Development",
     level:LevelType.LEVEL_THREE
   },
   {
-    descript:"Skills developed with Angular through online courses and personal projects. I have completed multiple courses on pluralsight teaching the fundamentals of Angular. With the knowledge gained from these courses I have developed this resume using Angular 6 to put these skills into practice.    ",
-    time:"SDF",
-    title:"Angular",
-    level:LevelType.LEVEL_TWO
-  },
-  {
-    descript:"I am most familar and effecient using Azure Devops and Git. I have used Git while at Carleton University for multiple projects. I have also used Git for all development done at Travelclick. Additionally I used Azure Devops for source control while at Avanade.",
+    descript:"I am most familar and effecient using TFS and Git. I have used Git while at Carleton University for multiple projects. I have also used Git for all development done at Travelclick and AMA. Additionally I used TFS for source control while at Avanade.",
     time:"SDF",
     title:"Source Control",
     level:LevelType.LEVEL_THREE
@@ -81,7 +81,7 @@ const SKILLS: ISkill[] = [
     level:LevelType.LEVEL_TWO
   },
   {
-    descript:"Strong experience writing complex SQL queries and statement. Experience through programming courses taken in carleton including a database specific course where I learned additional theory in database design. Additional experience using MySQL in TravelClick and SQL Server at Avanade. However I have not been put in a role of a dba in charge of maintaining or optimizing a database.",
+    descript:"Strong experience writing complex SQL queries and statements. Experience through programming courses taken in carleton including a database specific course where I learned additional theory in database design. Additional experience using MySQL in TravelClick and SQL Server at Avanade and AMA. However I have not been put in a role of a dba in charge of maintaining or optimizing a database.",
     time:"SDF",
     title:"SQL",
     level:LevelType.LEVEL_THREE
@@ -97,12 +97,6 @@ const SKILLS: ISkill[] = [
     time:"SDF",
     title:"Android Mobile Dev",
     level:LevelType.LEVEL_TWO
-  },
-  {
-    descript:"Machine Learning is an exciting and interesting subject for me. However I have not yet gotten any hands-on experience doing it. I understand some of the basic concepts associated with Machine Learning however this is a subject I am still learning and I'm looking to get experience with.",
-    time:"SDF",
-    title:"Machine Learning",
-    level:LevelType.LEVEL_ONE
   },
   {
     descript:"I have light experience with Python scripting in school. I completed a course dedicated to lightweight python scripting such as writing a script to apply filters on images and a script to do word counts on a text file using regression.",

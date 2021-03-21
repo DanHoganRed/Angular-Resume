@@ -1,5 +1,6 @@
 .profile-pic{
     max-width: 250px;
+    width: 100%;
     max-height: 350px;
     filter: grayscale(1);
 }
@@ -9,30 +10,13 @@ ul {
     margin: 0;
   }
 
-  .container {
-    padding: 10px 10px; 
-    padding-left: 5%;   
-    height: 100%;
-    min-height: -webkit-fill-available;
-    max-width: 100%;
-}
-
-
-.col-3 {
-  height: 100%;
-  min-height: -webkit-fill-available;
-}
-
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.row {
-  max-width: 100%;
-}
-
 .share-icon img {
   width: 36px;
   height: 35px;
+  filter: brightness(0) invert(1);
+}
+
+a
+{
+  color: white !important;
 }

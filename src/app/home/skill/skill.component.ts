@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ISkill, LevelType } from './shared/skill.model';
 import { SkillService } from './shared/skill.service';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { SkillDetailService } from './shared/skill-detail.service';
 
 @Component({
   selector: 'app-skill',
@@ -15,34 +17,31 @@ export class SkillComponent implements OnInit {
   public levelType=LevelType
   index = 1;
 
-  constructor(private skillService:SkillService) { }
+  constructor(private skillService:SkillService, private breakpointObserver: BreakpointObserver, private skillDetailService: SkillDetailService) {
+    // keep track of the screen size and adjust the row lengths accordingly.  
+    breakpointObserver.observe([
+        Breakpoints.XLarge,
+        Breakpoints.Large,
+        Breakpoints.Medium,
+        Breakpoints.Small,
+        Breakpoints.XSmall,
+      ]).subscribe(result => {
+        if(this.breakpointObserver.isMatched(Breakpoints.XLarge) || this.breakpointObserver.isMatched(Breakpoints.Large))
+        {
+          this.skillDetailService.setRowLength(3);
+        }
+        else if(this.breakpointObserver.isMatched(Breakpoints.Medium) || this.breakpointObserver.isMatched(Breakpoints.Small))
+        {
+          this.skillDetailService.setRowLength(2);
+        }
+        else if(this.breakpointObserver.isMatched(Breakpoints.XSmall))
+        {
+          this.skillDetailService.setRowLength(1);
+        }
+      });
+   }
 
   ngOnInit() {
-    this.skills = this.skillService.getSkills();//Populate the skills with the skills from the skill service.
-
-    /**
-     * I have to do some calculations to figure out where to put the
-     * details pane. The idea is to look at the screen size, side info size
-     * and card size to figure out how many cards can fit on the screen in
-     * a row before a break. 
-     */
-    var cardRow = window.screen.width - document.getElementsByClassName('col-3')[0].clientWidth
-    var cardW = 250;
-    this.index = cardRow / cardW;
-    this.index = Math.trunc(this.index);//On this index add a skill details row.
-    for(var i=0;i<this.skills.length;i++)
-    {
-      if(this.addBreak(i))
-      {
-        this.skills.splice(i, 0, null);//Add a null skill at the break indexes. Once the template is evaluated it will check for a null skill to populate with the skill details component
-        i++;
-      }
-    }
-    this.skills.splice(this.skills.length,0,null);//Add final break
-  }
-
-  addBreak(i)
-  {
-    return ((i+1)%(this.index+1) == 0); //if that index is a multiple of the row length
+    this.skills = this.skillService.getSkills();
   }
 }
